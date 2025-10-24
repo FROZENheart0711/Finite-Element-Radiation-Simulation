@@ -1,0 +1,19 @@
+
+readcdb.x: Multi_dielectric.o Operate_four.o labelinv.o hpsort.o comi.o
+	ifort Multi_dielectric.o Operate_four.o labelinv.o hpsort.o comi.o -o ./readcdb.x
+
+Multi_dielectric.o:
+	ifort -c Multi_dielectric.f
+Operate_four.o:
+	ifort -c Operate_four.f
+labelinv.o:
+	ifort -c labelinv.f
+hpsort.o:
+	ifort -c hpsort.f
+comi.o:
+	ifort -c comi.f
+
+.PHONY:clean
+clean:
+	rm *.o *.x
+

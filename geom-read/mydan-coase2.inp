@@ -1,0 +1,52 @@
+====material types
+3
+====Incident wave parameters
+0.15	Frequency (Ghz)
+====Polarization index
+1	  (1: theta(V), 2: phi(H), 3: Bot)
+====Incident angle of theta(deg)
+30	30	1	(start,end,number)
+====Incident angle of phi(deg)
+0	0	1	(start,end,number)
+====Observation parameters
+====RCS type
+2	(1 for monostatic, 2 for bistatic)
+====Receive angle of theta(deg)
+0	360	361	(start,end,number)
+====Receive angle of phi(deg)
+0 0	1	(start,end,number)
+====Material Number on two sides of the output surface
+2	3	(M1: inner; M2: outer)
+====Material property
+The first anisotropic Ep
+(4.5,0.5)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (4.5,0.5)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (4.5,0.5)
+The first anisotropic Mu
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first Xi
+(0.0,0.0)
+The first anisotropic Ep
+(1.0,0.0)	(0.0,0.0)	(0.0,0.0)
+(0.0,0.0)	(1.0,0.0)	(0.0,0.0)
+(0.0,0.0)	(0.0,0.0)	(1.0,0.0)
+The first anisotropic Mu
+(1.0,0.0)	(0.0,0.0)	(0.0,0.0)
+(0.0,0.0)	(1.0,0.0)	(0.0,0.0)
+(0.0,0.0)	(0.0,0.0)	(1.0,0.0)
+The first Xi
+(0.0,0.0)
+The first anisotropic Ep
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first anisotropic Mu
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first Xi
+(0.0,0.0)
+Tolerate err
+5e-3

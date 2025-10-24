@@ -1,0 +1,82 @@
+====material types
+6
+====Incident wave parameters
+4.86	Frequency (Ghz)
+====Polarization index
+1	  (1: theta(V), 2: phi(H), 3: Bot)
+====Incident angle of theta(deg)
+0	0	1	(start,end,number)
+====Incident angle of phi(deg)
+0	0	1	(start,end,number)
+====Observation parameters
+====RCS type
+2	(1 for monostatic, 2 for bistatic)
+====Receive angle of theta(deg)
+-180	180	361	(start,end,number)
+====Receive angle of phi(deg)
+0 	0	1	(start,end,number)
+====Material Number on two sides of the output surface
+5	6	(M1: inner; M2: outer)
+====Material property
+The first anisotropic Ep
+(2.33,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (2.33,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (2.33,0.0)
+The first anisotropic Mu
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first Xi
+(0.0,0.0)
+The first anisotropic Ep
+(2.33,0.0)	(0.0,0.0)	(0.0,0.0)
+(0.0,0.0)	(2.33,0.0)	(0.0,0.0)
+(0.0,0.0)	(0.0,0.0)	(2.33,0.0)
+The first anisotropic Mu
+(1.0,0.0)	(0.0,0.0)	(0.0,0.0)
+(0.0,0.0)	(1.0,0.0)	(0.0,0.0)
+(0.0,0.0)	(0.0,0.0)	(1.0,0.0)
+The first Xi
+(0.0,0.0)
+The first anisotropic Ep
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first anisotropic Mu
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first Xi
+(0.0,0.0)
+The first anisotropic Ep
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first anisotropic Mu
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first Xi
+(0.0,0.0)
+The first anisotropic Ep
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first anisotropic Mu
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first Xi
+(0.0,0.0)
+The first anisotropic Ep
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first anisotropic Mu
+(1.0,0.0)       (0.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (1.0,0.0)       (0.0,0.0)
+(0.0,0.0)       (0.0,0.0)       (1.0,0.0)
+The first Xi
+(0.0,0.0)
+Tolerate err
+5e-3
