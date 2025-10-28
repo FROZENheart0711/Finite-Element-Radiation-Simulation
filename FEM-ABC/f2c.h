@@ -118,5 +118,16 @@ void FORTRAN(bicgstab3)(int *iLen,
 
 void FORTRAN(matrix_vector)(int *mvoledge, int *iqvol, int *ipvol, field *volmat, field *cwork, field *cwork2);
 
+// ==========================================================
+// New subroutine for adaptive mesh error estimation
+// (Fortran implementation in compute_element_errors.f)
+// ==========================================================
+void FORTRAN(compute_element_errors)(field *crhs,       // complex solution array (size mvoledge)
+                                     real  *xyz,        // node coordinates (3 x mvolnode)
+                                     int   *lv,         // element-to-node mapping (5 x mvolele)
+                                     int   *le,         // element-to-edge mapping (6 x mvolele)
+                                     int   *mvolnode,   // number of nodes
+                                     int   *mvolele,    // number of volume elements
+                                     int   *mvoledge,   // number of edges (DOFs)
+                                     real  *errors);    // output: per-element error array (size mvolele)
 #endif // _PH_F2C_H_
-

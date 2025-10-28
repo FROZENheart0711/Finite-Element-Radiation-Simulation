@@ -1,0 +1,136 @@
+! ==========================================================
+! compute_element_errors.f90
+! Fortran subroutine exposed to C: compute_element_errors
+! 单精度版本，匹配 C 端 typedef:
+!   typedef float real;
+!   typedef float complex field;
+! ==========================================================
+
+module compute_element_errors_mod
+  use iso_c_binding, only: c_ptr, c_f_pointer, c_int, c_float, c_float_complex
+  implicit none
+contains
+
+  subroutine compute_element_errors(ptr_crhs, ptr_xyz, ptr_lv, ptr_le, &
+                                    mvolnode, mvolele, mvoledge, ptr_errors) bind(C, name="compute_element_errors_")
+    implicit none
+
+    ! ===== C interoperable arguments =====
+    type(c_ptr), value :: ptr_crhs
+    type(c_ptr), value :: ptr_xyz
+    type(c_ptr), value :: ptr_lv
+    type(c_ptr), value :: ptr_le
+    integer(c_int), value :: mvolnode, mvolele, mvoledge
+    type(c_ptr), value :: ptr_errors
+
+    ! ===== Local Fortran pointers =====
+    complex(c_float_complex), pointer :: crhs(:)      ! length mvoledge
+    real(c_float), pointer            :: xyz(:,:)     ! shape (3, mvolnode)
+    integer(c_int), pointer           :: lv(:,:)      ! shape (5, mvolele)
+    integer(c_int), pointer           :: le(:,:)      ! shape (6, mvolele)
+    real(c_float), pointer            :: errors(:)    ! length mvolele (output)
+
+    ! ===== Temporaries =====
+    integer :: i, j, idx, node1, node2, node3, node4, nn
+    real(c_float) :: x1(3), x2(3), x3(3), x4(3)
+    real(c_float) :: v21(3), v31(3), v41(3), crossv(3)
+    real(c_float) :: vol, energy_density, tmp_re, tmp_im
+    complex(c_float_complex) :: tmpc
+
+    ! ===== Map C pointers =====
+    if (c_associated(ptr_crhs)) then
+       call c_f_pointer(ptr_crhs, crhs, [mvoledge])
+    else
+       write(*,*) '[compute_element_errors] ptr_crhs is null'
+       return
+    end if
+
+    if (c_associated(ptr_xyz)) then
+       call c_f_pointer(ptr_xyz, xyz, [3, mvolnode])
+    else
+       write(*,*) '[compute_element_errors] ptr_xyz is null'
+       return
+    end if
+
+    if (c_associated(ptr_lv)) then
+       call c_f_pointer(ptr_lv, lv, [5, mvolele])
+    else
+       write(*,*) '[compute_element_errors] ptr_lv is null'
+       return
+    end if
+
+    if (c_associated(ptr_le)) then
+       call c_f_pointer(ptr_le, le, [6, mvolele])
+    else
+       write(*,*) '[compute_element_errors] ptr_le is null'
+       return
+    end if
+
+    if (c_associated(ptr_errors)) then
+       call c_f_pointer(ptr_errors, errors, [mvolele])
+    else
+       write(*,*) '[compute_element_errors] ptr_errors is null'
+       return
+    end if
+
+    ! ===== Compute element-wise error =====
+    do i = 1, mvolele
+       vol = 0.0_c_float
+       energy_density = 0.0_c_float
+
+       ! vertex nodes
+       node1 = lv(1,i)
+       node2 = lv(2,i)
+       node3 = lv(3,i)
+       node4 = lv(4,i)
+
+       if (node1>=1 .and. node1<=mvolnode .and. &
+           node2>=1 .and. node2<=mvolnode .and. &
+           node3>=1 .and. node3<=mvolnode .and. &
+           node4>=1 .and. node4<=mvolnode) then
+
+          x1 = xyz(:, node1)
+          x2 = xyz(:, node2)
+          x3 = xyz(:, node3)
+          x4 = xyz(:, node4)
+
+          v21 = x2 - x1
+          v31 = x3 - x1
+          v41 = x4 - x1
+
+          ! cross = v21 x v31
+          crossv(1) = v21(2)*v31(3) - v21(3)*v31(2)
+          crossv(2) = v21(3)*v31(1) - v21(1)*v31(3)
+          crossv(3) = v21(1)*v31(2) - v21(2)*v31(1)
+
+          vol = abs(crossv(1)*v41(1) + crossv(2)*v41(2) + crossv(3)*v41(3)) / 6.0_c_float
+       else
+          vol = 1.0e-20_c_float
+       end if
+
+       ! average |E|^2
+       nn = 0
+       energy_density = 0.0_c_float
+       do j = 1, 6
+          idx = le(j,i)
+          if (idx >= 1 .and. idx <= mvoledge) then
+             tmpc = crhs(idx)
+             tmp_re = real(tmpc)
+             tmp_im = aimag(tmpc)
+             energy_density = energy_density + (tmp_re*tmp_re + tmp_im*tmp_im)
+             nn = nn + 1
+          end if
+       end do
+       if (nn > 0) then
+          energy_density = energy_density / real(nn, c_float)
+       else
+          energy_density = 0.0_c_float
+       end if
+
+       errors(i) = sqrt(energy_density * vol)
+       if (.not.(errors(i) > 0.0_c_float)) errors(i) = 0.0_c_float
+    end do
+
+  end subroutine compute_element_errors
+
+end module compute_element_errors_mod
